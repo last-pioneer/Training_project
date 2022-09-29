@@ -17,6 +17,7 @@ for i in mylist:
 """
 Используйте range(), чтобы распечатать все чётные числа от 0 до 10.
 """
+
 mylist = []
 for i in range(11):
     if i % 2 == 0:
@@ -100,14 +101,10 @@ animal_crackers('Crazy Kangaroo') --> False
 
 def animal_crackers(text):
     a = text.split()
-    b = a[0][0].split()
-    c = a[1][0].split()
-    if b == c:
-        return True
-    else:
-        return False
+    return a[0][0] == a[1][0]
 
 
+print(animal_crackers('Levelheaded Llama'))
 print(animal_crackers('Crazy Kangaroo'))
 
 
@@ -198,8 +195,7 @@ almost_there(209) --> True
 def almost_there(n):
     if n in range(90, 111) or n in range(190, 211):
         return True
-    else:
-        return False
+    return False
     pass
 
 
@@ -219,19 +215,17 @@ has_33([3, 1, 3]) → False
 
 
 def has_33(nums):
-    b = False
     for num in range(0, len(nums) - 1):
-        if nums[num] == nums[num + 1]:
-            b = True
-            break
-    return b
-
+        if nums[num] == 3 and nums[num] == nums[num + 1]:
+            return True
+    return False
 
 # проверка
 print(has_33([1, 3, 3]))
 print(has_33([1, 3, 1, 3]))
-print(has_33([3, 1, 3]))
+print(has_33([3, 1, 1, 3]))
 print(has_33([3, 1, 2, 5, 3, 3, 8, 3]))
+
 
 
 """
@@ -269,7 +263,7 @@ def blackjack(a, b, c):
     if (a + b + c) <= 21:
         print(a + b + c)
     elif (a + b + c) > 21:
-        if a == 11 or b == 11 or c == 11:
+        if a in [a, b, c]:
             if (a + b + c - 10) < 21:
                 print(a + b + c - 10)
         else:
@@ -280,3 +274,133 @@ def blackjack(a, b, c):
 blackjack(5, 6, 7)
 blackjack(9, 9, 9)
 blackjack(9, 9, 11)
+
+
+"""
+summer_69: Вернуть сумму чисел в массиве, кроме набора чисел который начинается
+с 6 и продолжается до 9 (для каждого числа 6 далее где-то будет число 9). 
+Вернуть 0 если чисел нет.
+
+summer_69([1, 3, 5]) --> 9
+summer_69([4, 5, 6, 7, 8, 9]) --> 9
+summer_69([2, 1, 6, 9, 11]) --> 14
+"""
+
+
+def summer_69(arr):
+    s = 0
+    st = 0
+    for it in arr:
+        if it != 6:
+            s += it
+            st += 1
+        else:
+            break
+    if st != len(arr):
+        for it in arr[::-1]:
+            if it != 9:
+                s += it
+            else:
+                break
+    print(s)
+
+
+# проверка
+summer_69([1, 3, 5, 7, 8])
+summer_69([4, 5, 6, 7, 8, 9, 10, 10])
+summer_69([2, 5, 1, 6, 9, 11])
+
+
+"""
+spy_game: Напишите функцию, которая берёт список чисел, и возвращает True,
+если в списке содержатся числа 0 0 7 в указанном порядке.
+
+ spy_game([1,2,4,0,0,7,5]) --> True
+ spy_game([1,0,2,4,0,5,7]) --> True
+ spy_game([1,7,2,0,4,5,0]) --> False
+"""
+
+
+def spy_game(nums):
+    a = []
+    for i in range(len(nums)):
+        if nums[i] == 0 or nums[i] == 7:
+            a.append(nums[i])
+    return a == [0, 0, 7]
+#        return True
+#    else:
+#        return False
+
+
+# проверка
+print(spy_game([1, 2, 4, 0, 0, 7, 5]))
+print(spy_game([1, 0, 2, 4, 0, 5, 7]))
+print(spy_game([1, 7, 2, 0, 4, 5, 0]))
+
+
+"""
+Count_primes: Напишите функцию, которая возвращает количество простых чисел,
+меньше или равны указанному числу.
+
+count_primes(100) --> 25
+
+По определению, 0 и 1 не являются простыми числами.
+"""
+
+
+def count_primes(num):
+    """ Функция вычисления колл-ва простых чисел до заданного. """
+    counter = 0
+    if num == 2:
+        return 1
+    for i in range(num, 3, -1):
+        if i % 2 != 0 and i % 3 != 0 and i % 4 != 0 and i % 5 != 0:
+            counter += 1
+    return counter
+
+
+# проверка
+print(count_primes(100))
+
+
+"""
+Для развлечения:
+print_big: Напишите функцию, которая принимает на вход одну букву,
+и возвращает фигуру 5x5 для этой буквы.
+
+print_big('a')
+
+out:   *
+      * *
+     *****
+     *   *
+     *   *
+
+Замечание: как вариант, можно создать словарь возможных шаблонов,
+и сделать маппинг алфавита и нужных 5-строчных комбинаций шаблонов.
+Для целей этого упражнения, будет достаточно, если Вы сделаете это
+только для нескольких букв: A,B,C,D,E.
+"""
+
+
+def print_big(letter):
+    a = "  *  \n * * \n*****\n*   *\n*   *"
+    b = "**** \n*   *\n**** \n*   *\n**** "
+    c = "**** \n*    \n*    \n*    \n**** "
+    d = "**** \n*   *\n*   *\n*   *\n**** "
+    e = "*****\n*    \n**** \n*    \n*****"
+    if letter == "a":
+        print(a)
+    elif letter == "b":
+        print(b)
+    elif letter == "c":
+        print(c)
+    elif letter == "d":
+        print(d)
+    elif letter == "e":
+        print(e)
+
+
+print_big('b')
+print_big('a')
+print_big('d')
