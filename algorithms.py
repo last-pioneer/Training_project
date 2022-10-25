@@ -140,4 +140,4 @@ if temp != summa:
     flag = 'NO'
 
 print(flag)
->>>>>>> 51c6104 (Решал задачи на сайте - https://stepik.org)
+
